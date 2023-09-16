@@ -67,3 +67,25 @@ export class SelectSortStrategy extends SortingStrategy {
     return data;
   }
 }
+
+export class ShellSortStrategy extends SortingStrategy {
+  sort(data) {
+    const swap = (arr, a, b) => {
+      arr[a] = arr[a] + arr[b];
+      arr[b] = arr[a] - arr[b];
+      arr[a] = arr[a] - arr[b];
+    };
+
+    let mid = parseInt(data.length / 2);
+    for (let gap = mid; gap > 0; gap = parseInt(gap / 2)) {
+      for (let i = gap; i < data.length; i++) {
+        let j = i;
+        while (j - gap >= 0 && data[j] < data[j - gap]) {
+          swap(data, j, j - gap);
+          j = j - gap;
+        }
+      }
+    }
+    return data;
+  }
+}
